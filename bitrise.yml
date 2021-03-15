@@ -1,0 +1,96 @@
+---
+format_version: '8'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: react-native
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  deploy:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4: {}
+    - cache-pull@2: {}
+    - yarn@0:
+        inputs:
+        - cache_local_deps: 'yes'
+        - verbose_log: 'yes'
+        - command: install
+    - cocoapods-install@1:
+        inputs:
+        - source_root_path: "$BITRISE_SOURCE_DIR/ios"
+    - certificate-and-profile-installer@1: {}
+    - xcode-archive@3:
+        inputs:
+        - project_path: "$BITRISE_PROJECT_PATH"
+        - scheme: "$BITRISE_SCHEME"
+        - export_method: "$BITRISE_EXPORT_METHOD"
+        - team_id: "$BITRISE_TEAM"
+        - compile_bitcode: 'no'
+        - upload_bitcode: 'no'
+        - force_code_sign_identity: "$BITRISE_CODE_SIGNING_IDENTITY"
+        - force_provisioning_profile_specifier: ''
+        - force_provisioning_profile: "$BITRISE_PROFILE_ID"
+        - verbose_log: 'no'
+        - configuration: Debug
+    - xcode-test@2:
+        inputs:
+        - generate_code_coverage_files: 'yes'
+        - should_build_before_test: 'no'
+        - should_retry_test_on_fail: 'yes'
+        - output_tool: xcodebuild
+        - xcodebuild_test_options: "-parallel-testing-enabled=YES -parallel-testing-worker-count=3"
+    - install-missing-android-tools@2:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+    - android-build@0:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+    - cache-push@2: {}
+    - deploy-to-bitrise-io@1: {}
+  primary:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4: {}
+    - script@1:
+        title: Do anything with Script step
+    - yarn@0:
+        inputs:
+        - command: install
+    - yarn@0:
+        inputs:
+        - command: test
+    - deploy-to-bitrise-io@1: {}
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: android
+  - opts:
+      is_expand: false
+    MODULE: app
+  - opts:
+      is_expand: false
+    VARIANT: ''
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: ios/TodoMVC.xcworkspace
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: TodoMVC
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: development
+  - opts:
+      is_expand: false
+    BITRISE_TEAM: 72SA8V3WYL
+  - opts:
+      is_expand: false
+    BITRISE_PROFILE_ID: b103a1f0-1f51-4d53-a41f-c08719676e94
+  - opts:
+      is_expand: false
+    BITRISE_CODE_SIGNING_IDENTITY: 'iPhone Developer: Dev Portal Bot Bitrise (E89JV3W9K4)'

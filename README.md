@@ -1,10 +1,7 @@
-# react-native-hello-world
-
-[![Build Status](https://app.bitrise.io/app/8aa9c821d33d3435/status.svg?token=k9f8-5y_cX-fNqgtGBV9ug&branch=main)](https://app.bitrise.io/app/8aa9c821d33d3435)
+# Bitrise-React-Native-Sample
 
 Simple React Native Project 
 
-Working bitrise.yml included in project
-- https://github.com/damo1884/react-native-hello-world/blob/main/bitrise.yml
+Working bitrise.yml included in the root of the project
 
-bitrise.yml build iOS .ipa + Android .apk and run tests 
+bitrise.yml builds iOS .ipa + Android .apk and runs tests 

@@ -94,3 +94,6 @@ app:
   - opts:
       is_expand: false
     BITRISE_CODE_SIGNING_IDENTITY: 'iPhone Developer: Dev Portal Bot Bitrise (E89JV3W9K4)'
+meta:
+  bitrise.io:
+    machine_type_id: g2.8core

@@ -60,6 +60,7 @@ workflows:
     - git-clone@6: {}
     - restore-cache@1:
         inputs:
+        - verbose: "true"
         - key: |-
             npm-cache-{{ checksum "package-lock.json" }}
             npm-cache-
@@ -70,7 +71,8 @@ workflows:
         - command: install
     - save-cache@1:
         inputs:
-        - paths: node_modules/
+        - paths: node_modules/**
+        - verbose: "true"
         - key: npm--cache-{{ checksum "package-lock.json" }}
   build_android:
     before_run:

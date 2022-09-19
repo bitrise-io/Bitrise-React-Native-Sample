@@ -148,3 +148,7 @@ workflows:
         inputs:
         - command: test
     - deploy-to-bitrise-io@1: {}
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.4.x
+    machine_type_id: g2.8core

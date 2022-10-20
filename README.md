@@ -1,5 +1,4 @@
 # Bitrise-React-Native-Sample
-# remove me
 Simple React Native Project 
 
 Working bitrise.yml included in the root of the project

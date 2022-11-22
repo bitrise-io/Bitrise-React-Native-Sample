@@ -5,7 +5,7 @@
 #import <React/RCTRootView.h>
 
 #define TIMEOUT_SECONDS 600
-#define TEXT_TO_LOOK_FOR @"Step One"
+#define TEXT_TO_LOOK_FOR @"React Native"
 
 @interface TodoMVCTests : XCTestCase
 

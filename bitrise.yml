@@ -42,7 +42,7 @@ workflows:
         inputs:
         - generate_code_coverage_files: 'yes'
         - should_build_before_test: 'no'
-        - should_retry_test_on_fail: 'yes'
+        - test_repetition_mode: up_until_maximum_repetitions
         - output_tool: xcodebuild
         - xcodebuild_test_options: "-parallel-testing-enabled=YES -parallel-testing-worker-count=3"
     - install-missing-android-tools@3:

@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "^17.0.1",
-    "react-native": "^0.65.3"
+    "react": "^18.2.0",
+    "react-native": "^0.71.8"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -19,12 +19,13 @@
     "@react-native-community/eslint-config": "^1.1.0",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
-    "jest": "^25.1.0",
+    "jest": "^25.5.4",
     "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "^17.0.1",
-    "react-native-codegen": "^0.0.7"
+    "react-native-codegen": "^0.0.7",
+    "react-test-renderer": "^18.2.0"
   },
   "jest": {
+    "testEnvironment": "node",
     "preset": "react-native"
   }
 }

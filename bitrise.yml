@@ -1,11 +1,10 @@
----
 format_version: 11
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: react-native
 trigger_map:
-- push_branch: "*"
+- push_branch: '*'
   workflow: primary
-- pull_request_source_branch: "*"
+- pull_request_source_branch: '*'
   workflow: primary
 workflows:
   deploy:
@@ -16,39 +15,39 @@ workflows:
     - cache-pull@2: {}
     - yarn@0:
         inputs:
-        - cache_local_deps: 'yes'
-        - verbose_log: 'yes'
+        - cache_local_deps: "yes"
+        - verbose_log: "yes"
         - command: install
     - cocoapods-install@2.3:
         inputs:
-        - source_root_path: "$BITRISE_SOURCE_DIR/ios"
+        - source_root_path: $BITRISE_SOURCE_DIR/ios
     - certificate-and-profile-installer@1: {}
     - xcode-archive@4.6:
         inputs:
-        - project_path: "$BITRISE_PROJECT_PATH"
-        - scheme: "$BITRISE_SCHEME"
-        - compile_bitcode: 'no'
-        - upload_bitcode: 'no'
-        - automatic_code_signing: 'off'
-        - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+        - compile_bitcode: "no"
+        - upload_bitcode: "no"
+        - automatic_code_signing: "off"
+        - distribution_method: $BITRISE_DISTRIBUTION_METHOD
         - xcconfig_content: |
             DEVELOPMENT_TEAM = $BITRISE_TEAM
             CODE_SIGN_IDENTITY = $BITRISE_CODE_SIGNING_IDENTITY
             PROVISIONING_PROFILE_SPECIFIER = $BITRISE_PROFILE_ID
-        - verbose_log: 'no'
+        - verbose_log: "no"
         - configuration: Debug
     - xcode-test@4:
         inputs:
-        - generate_code_coverage_files: 'yes'
-        - should_build_before_test: 'no'
+        - generate_code_coverage_files: "yes"
+        - should_build_before_test: "no"
         - output_tool: xcodebuild
-        - xcodebuild_test_options: "-parallel-testing-enabled=YES -parallel-testing-worker-count=3"
+        - xcodebuild_test_options: -parallel-testing-enabled=YES -parallel-testing-worker-count=3
     - install-missing-android-tools@3.1:
         inputs:
-        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+        - gradlew_path: $PROJECT_LOCATION/gradlew
     - android-build@1.0:
         inputs:
-        - project_location: "$PROJECT_LOCATION"
+        - project_location: $PROJECT_LOCATION
     - cache-push@2: {}
     - deploy-to-bitrise-io@2.1: {}
   primary:
@@ -75,7 +74,7 @@ app:
     MODULE: app
   - opts:
       is_expand: false
-    VARIANT: ''
+    VARIANT: ""
   - opts:
       is_expand: false
     BITRISE_PROJECT_PATH: ios/TodoMVC.xcworkspace
@@ -96,5 +95,5 @@ app:
     BITRISE_CODE_SIGNING_IDENTITY: Apple Development
 meta:
   bitrise.io:
-    stack: osx-xcode-13.4.x
-    machine_type_id: g2.4core
+    stack: osx-xcode-14.1.x-ventura
+    machine_type_id: g2-m1.8core

@@ -63,6 +63,9 @@ workflows:
     - yarn@0:
         inputs:
         - command: test
+    - cocoapods-install@2.3:
+        inputs:
+        - source_root_path: $BITRISE_SOURCE_DIR/ios
     - deploy-to-bitrise-io@2.1: {}
 app:
   envs:
